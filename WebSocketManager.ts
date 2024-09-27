@@ -1,3 +1,5 @@
+// A class for managing websocket traffic
+
 export default class WebSocketManager extends Phaser.Events.EventEmitter {
     public static instance: WebSocketManager; // Singleton
     private websocket: WebSocket | null;
