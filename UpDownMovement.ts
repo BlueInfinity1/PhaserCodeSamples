@@ -1,3 +1,5 @@
+// Creates smooth up and down motion for a moving object
+
 // UpDownMovement.ts
 export default class UpDownMovement {
 
