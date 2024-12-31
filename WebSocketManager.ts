@@ -3,7 +3,7 @@
 export default class WebSocketManager extends Phaser.Events.EventEmitter {
     public static instance: WebSocketManager; // Singleton
     private websocket: WebSocket | null;
-    private readonly url: string = "wss://uk9atrpwu4.execute-api.us-east-1.amazonaws.com/dev";
+    private readonly url: string = "wss://mock-value.execute-api.us-east-1.amazonaws.com/dev";
 
     constructor() {
         super();
@@ -54,6 +54,7 @@ export default class WebSocketManager extends Phaser.Events.EventEmitter {
             const message = data.message;
 
             console.log(message);
+            
             switch (data.op) {
                 case 100:
                     console.log('Op 100:', message.targetValue, message.startTimeOffset);
@@ -70,15 +71,7 @@ export default class WebSocketManager extends Phaser.Events.EventEmitter {
             console.error('Parsing error:', error);
         }
     }
-
-    private sendMessage(message: string): void {
-        if (this.websocket && this.websocket.readyState === WebSocket.OPEN) {
-            this.websocket.send(message);
-        } else {
-            console.error('WebSocket is not connected.');
-        }
-    }
-
+    
     public sendStartRequest() {
         const message = "{\"action\": \"message\", \"op\": 100}";
         this.sendMessage(message);
@@ -92,6 +85,14 @@ export default class WebSocketManager extends Phaser.Events.EventEmitter {
     public closeConnection(): void {
         if (this.websocket) {
             this.websocket.close();
+        }
+    }
+
+    private sendMessage(message: string): void {
+        if (this.websocket && this.websocket.readyState === WebSocket.OPEN) {
+            this.websocket.send(message);
+        } else {
+            console.error('WebSocket is not connected.');
         }
     }
 }
